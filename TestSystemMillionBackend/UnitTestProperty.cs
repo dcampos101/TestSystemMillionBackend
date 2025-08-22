@@ -83,46 +83,10 @@ public class PropertyRepositoryTests3
             .ReturnsAsync(false);
         mockCursorProperty.Setup(c => c.Current).Returns(sampleProperties);
 
-        mockCursorProperty
-            .Setup(x => x.ToListAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(sampleProperties); // DEVUELVE TU LISTA
-        //Console.WriteLine($"[TEST] Properties count: {properties.Count}");
-
-        //---2
-        //    mockPropertyCollection.Setup(static x => x.Find(
-        //    It.IsAny<FilterDefinition<Property>>(),
-        //    It.IsAny<FindOptions>()))
-        //.Returns((IFindFluent<Property, Property>)Mock.Of<IAsyncCursor<Property>>());
-
-        //    mockPropertyCollection.Setup(x => x.Find(It.IsAny<FilterDefinition<Property>>(), null))
-        //        .Returns((IFindFluent<Property, Property>)Mock.Of<IAsyncCursor<Property>>());
-
-        //    mockPropertyCollection.Setup(x => x.Find(It.IsAny<FilterDefinition<Property>>(), null)
-        //            .ToListAsync(It.IsAny<CancellationToken>()))
-        //        .ReturnsAsync(sampleProperties);
-
-        // Mock cursor para propiedades 3
-        //var mockPropertyCursor = new Mock<IAsyncCursor<Property>>();
-        //mockPropertyCursor.Setup(_ => _.Current).Returns(sampleProperties);
-        //mockPropertyCursor
-        //    .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
-        //    .Returns(true)
-        //    .Returns(false);
-        //mockPropertyCursor
-        //    .SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
-        //    .ReturnsAsync(true)
-        //    .ReturnsAsync(false);
-
-        //// Mock ToListAsync
-        //mockPropertyCursor
-        //    .Setup(c => c.ToListAsync(It.IsAny<CancellationToken>()))
+        //mockCursorProperty
+        //    .Setup(x => x.ToListAsync(It.IsAny<CancellationToken>()))
         //    .ReturnsAsync(sampleProperties);
-
-        //// Mock Find para que retorne tu cursor
-        //mockPropertyCollection
-        //    .Setup(c => c.Find(It.IsAny<FilterDefinition<Property>>(), It.IsAny<FindOptions>()))
-        //    .Returns((IFindFluent<Property, Property>)mockPropertyCursor.Object);
-
+ 
         // Mock Find para Owner
         var mockCursorOwner = new Mock<IAsyncCursor<Owner>>();
 
@@ -138,20 +102,7 @@ public class PropertyRepositoryTests3
             .ReturnsAsync(false);
         mockCursorOwner.Setup(c => c.Current).Returns(sampleOwners);
 
-        //mockCursorOwner
-        //    .Setup(x => x.ToListAsync(It.IsAny<CancellationToken>()))
-        //    .ReturnsAsync(sampleOwners); // DEVUELVE TU LISTA
-        //Console.WriteLine($"[TEST] Owners count: {owners.Count}");
-        //---no funciona
-        //    mockOwnerCollection.Setup(x => x.Find(
-        //    It.IsAny<FilterDefinition<Owner>>(),
-        //    It.IsAny<FindOptions>()))
-        //.Returns((IFindFluent<Owner, Owner>)Mock.Of<IAsyncCursor<Owner>>());
-
-        //    mockOwnerCollection.Setup(x => x.Find(It.IsAny<FilterDefinition<Owner>>(), null)
-        //            .FirstOrDefaultAsync(It.IsAny<CancellationToken>()))
-        //        .ReturnsAsync(sampleOwners.First());
-
+    
         // Mock Find para PropertyImage
         var mockCursorPropertyImage = new Mock<IAsyncCursor<PropertyImage>>();
 
@@ -167,26 +118,12 @@ public class PropertyRepositoryTests3
             .ReturnsAsync(false);
         mockCursorPropertyImage.Setup(c => c.Current).Returns(sampleImages);
 
-        //mockCursorPropertyImage
-        //    .Setup(x => x.ToListAsync(It.IsAny<CancellationToken>()))
-        //    .ReturnsAsync(sampleImages); // DEVUELVE TU LISTA
-        //---no funciona
-        //    mockImageCollection.Setup(x => x.Find(
-        //    It.IsAny<FilterDefinition<PropertyImage>>(),
-        //    It.IsAny<FindOptions>()))
-        //.Returns((IFindFluent<PropertyImage, PropertyImage>)Mock.Of<IAsyncCursor<PropertyImage>>());
-
-        //    mockImageCollection.Setup(x => x.Find(It.IsAny<FilterDefinition<PropertyImage>>(), null)
-        //            .FirstOrDefaultAsync(It.IsAny<CancellationToken>()))
-        //        .ReturnsAsync(sampleImages.First());
-        //
         var repo = new PropertyRepository(mockContext.Object);
 
         // Act
         var result = new List<PropertyDto>();
         if (repo != null)
         {
-            //return new List<PropertyDto>(); // o lanza una excepción si prefieres
             result = await repo.GetFilteredAsync(null, null, null, null);
         }
         
